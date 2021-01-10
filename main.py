@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 import pandas as pd
+import os
+import time
 
 colorIndex=["color","color_name","hex","R","G","B"]
 csv = pd.read_csv('include/colors.csv', names=colorIndex, header=None)
@@ -40,18 +42,14 @@ cam = cv2.VideoCapture(0)
 ret, frame = cam.read()
 cv2.imwrite("openCVImage.png", frame)
 img = cv2.imread("openCVImage.png")
+cam.release
 #import Face Cascades (Prebuilt identification of faces)
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 # Convert to grayscale
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 #Face detection settings
-faces = face_cascade.detectMultiScale(
-    imgGray,
-    scaleFactor=1.1,
-    minNeighbors=5,
-    minSize=(30, 30),
-)
+faces = face_cascade.detectMultiScale(imgGray, 1.3, 5)
 
 # Draw a rectangle around the faces
 for (x, y, w, h) in faces:
@@ -80,6 +78,11 @@ for (x, y, w, h) in faces:
     jsonFile.write(
         "{\"generalColor\": \"" + generalName + "\", \"" + cnamePost + "\": \"cnamePost\", \"BGR\": \"" + bgr + "\"}")
     jsonFile.close()
-
-
+    time.sleep(1)
+    os.popen("git add index.html openCVImage.png --force")
+    time.sleep(1)
+    os.popen("git commit -m \"Adding todays colors\"")
+    time.sleep(1)
+    os.popen("git push origin")
+    time.sleep(1)
 
