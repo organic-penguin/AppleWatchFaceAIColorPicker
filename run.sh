@@ -1,1 +1,1 @@
-sudo bin/python main.py
+bin/python main.py
