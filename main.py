@@ -57,7 +57,7 @@ for (x, y, w, h) in faces:
 
     #Color sampling point (Takes the face identification X and Y and adds additional pixels for sampling what shirt color you're wearing
     shirtSamplePointX = x + 40
-    shirtSamplePointY = y + 135
+    shirtSamplePointY = y + 125
 
     b, g, r = img[shirtSamplePointX, shirtSamplePointY]
 
