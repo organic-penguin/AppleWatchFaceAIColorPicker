@@ -13,25 +13,25 @@ def getColorName(R,G,B):
             cname = csv.loc[i,"color_name"]
             cname = cname.lower()
             if "red" in cname:
-                generalColor = "red"
+                generalColor = "Red"
             elif "blue" in cname:
-                generalColor = "blue"
+                generalColor = "Blue"
             elif "bleu" in cname:
-                generalColor = "blue"
+                generalColor = "Blue"
             elif "green" in cname:
-                generalColor = "green"
+                generalColor = "Green"
             elif "yellow" in cname:
-                 generalColor = "yellow"
+                 generalColor = "Yellow"
             elif "turquoise" in cname:
-                 generalColor = "turquoise"
+                 generalColor = "Turquoise"
             elif "grey" in cname:
-                generalColor = "grey"
+                generalColor = "Grey"
             elif "rosy" in cname:
-                generalColor = "pink"
+                generalColor = "Pink"
             elif "black" in cname:
-                generalColor = "black"
+                generalColor = "Black"
             else:
-                 generalColor = "other color named " + cname
+                 generalColor = "Other"
     return generalColor, cname
 
 #Capture an image from your camera
