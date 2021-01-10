@@ -35,35 +35,36 @@ def getColorName(R,G,B):
                  generalColor = "other color named " + cname
     return generalColor, cname
 
-#Capture an image from your camera then save as an image to reuse later and single frame processing (save resources)
+#Capture an image from your camera
 cam = cv2.VideoCapture(0)
-ret, frame = cam.read()
-cv2.imwrite("openCVImage.png", frame)
-img = cv2.imread("openCVImage.png")
+
 #import Face Cascades (Prebuilt identification of faces)
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
-# Convert to grayscale
-imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-#Face detection settings
-faces = face_cascade.detectMultiScale(
-    imgGray,
-    scaleFactor=1.1,
-    minNeighbors=5,
-    minSize=(30, 30),
-)
+while True:
+    # Capture frame-by-frame
+    ret, frame = cam.read()
+    imgGray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    #Face detection settings
+    faces = face_cascade.detectMultiScale(
+        imgGray,
+        scaleFactor=1.1,
+        minNeighbors=5,
+        minSize=(30, 30),
 
-# Draw a rectangle around the faces
-for (x, y, w, h) in faces:
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    )
 
+    # Draw a rectangle around the faces
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    
     #Color sampling point (Takes the face identification X and Y and adds additional pixels for sampling what shirt color you're wearing
     shirtSamplePointX = x + 40
     shirtSamplePointY = y + 135
 
-    b, g, r = img[shirtSamplePointX, shirtSamplePointY]
+    b, g, r = frame[shirtSamplePointX, shirtSamplePointY]
 
-    cv2.rectangle(img, (shirtSamplePointX, shirtSamplePointY), (shirtSamplePointX + 5, shirtSamplePointY + 5),
+    cv2.rectangle(frame, (shirtSamplePointX, shirtSamplePointY), (shirtSamplePointX + 5, shirtSamplePointY + 5),
                   (0, 0, 255), 1)
     b = int(b)
     g = int(g)
@@ -75,11 +76,20 @@ for (x, y, w, h) in faces:
     print("CNAME is " + cnamePost)
 
     bgr = str(r) + "," + str(g) + "," + str(b)
-    cv2.imwrite("openCVImage.png", img)
+
     jsonFile = open("index.html", "w")
     jsonFile.write(
         "{\"generalColor\": \"" + generalName + "\", \"" + cnamePost + "\": \"cnamePost\", \"BGR\": \"" + bgr + "\"}")
     jsonFile.close()
+
+
+
+
+    # Display the resulting frame
+    cv2.imshow('Video', frame)
+
+    if cv2.waitKey(100) & 0xFF == ord('q'):
+        break
 
 
 
