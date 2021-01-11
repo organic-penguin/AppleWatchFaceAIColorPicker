@@ -1,11 +1,7 @@
 import numpy as np
 import cv2
-import pandas as pd
 import os
 import time
-
-colorIndex=["color","color_name","hex","R","G","B"]
-csv = pd.read_csv('include/colors.csv', names=colorIndex, header=None)
 
 def getColorName(H,S,V):
 	S = S/255
@@ -67,9 +63,7 @@ for (x, y, w, h) in faces:
     v = int(v)
     print("HSV values = ", h, s/255, v/255)
     generalName = getColorName(h, s, v)
-    #cnamePost = getColorName(h, s, v)[1]
     print("Generalized Color Name = ", generalName)
-    #print("CNAME is " + cnamePost)
 
     hsv = str(h) + "," + str(s) + "," + str(v)
     cv2.imwrite("openCVImage.png", img)
@@ -77,11 +71,11 @@ for (x, y, w, h) in faces:
     jsonFile.write(
         "{\"generalColor\": \"" + generalName + "\", \"BGR\": \"" + hsv + "\"}")
     jsonFile.close()
-#    time.sleep(1)
-  #  os.popen("git add index.html openCVImage.png --force")
- #   time.sleep(1)
-   # os.popen("git commit -m \"Adding todays colors\"")
-#    time.sleep(1)
- #   os.popen("git push origin main:myColorForToday")
-  #  time.sleep(1)
+    time.sleep(1)
+    os.popen("git add index.html openCVImage.png --force")
+    time.sleep(1)
+    os.popen("git commit -m \"Adding todays colors\"")
+    time.sleep(1)
+    os.popen("git push origin main:myColorForToday")
+    time.sleep(1)
 
