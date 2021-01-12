@@ -3,7 +3,8 @@ core: install_services
 
 install_services:
 	@echo "Service installation has not been generated"
-	sudo apt-get install -y libatlas-base-dev python python3 opencv-python git
+	sudo apt-get install -y  libatlas-base-dev libwebp-dev python python3 python3-pip libtiff5
+	sudo pip3 install -y opencv-python
 
 add_to_repo:
 	@echo "Creating new branch for your GitHub page... not completed yet"
