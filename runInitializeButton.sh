@@ -1,1 +1,0 @@
-python $PWD/initializeButton.py
