@@ -3,7 +3,7 @@ core: install_services
 
 install_services:
 	@echo "Service installation has not been generated"
-	sudo apt-get install -y  libatlas-base-dev libwebp-dev python python3 python3-pip libtiff5
+	sudo apt-get install -y  libatlas-base-dev libwebp-dev python python3 python3-pip libtiff5  libilmbase-dev libopenexr-dev libgstreamer1.0-dev libopenjp2-7
 	sudo pip3 install -y opencv-python
 
 add_to_repo:
