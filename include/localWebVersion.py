@@ -2,6 +2,9 @@ import numpy as np
 import cv2
 import os
 import time
+from subprocess import Popen, PIPE
+
+directory = os.getcwd()
 
 def getColorName(H,S,V):
         S = S/255
@@ -53,7 +56,7 @@ for (x, y, w, h) in faces:
 
         #Color sampling point points (Takes the face identification X and Y and adds additional pixels for sampling what shirt color you're wearing
         firstShirtSamplePointX = x + 40
-        firstShirtSamplePointY = (y+h) + 125
+        firstShirtSamplePointY = (y + h) + 100
 
         secondShirtSamplePointX = firstShirtSamplePointX - 10
         secondShirtSamplePointY = firstShirtSamplePointY + 5
@@ -77,12 +80,12 @@ for (x, y, w, h) in faces:
         s3 = int(s)
         v3 = int(v)
 
-        cv2.rectangle(frame, (firstShirtSamplePointX, firstShirtSamplePointY), (firstShirtSamplePointX + 5, firstShirtSamplePointY + 5),
-                  (0, 240, 255), 1)
-        cv2.rectangle(frame, (secondShirtSamplePointX, secondShirtSamplePointY), (secondShirtSamplePointX + 5, secondShirtSamplePointY + 5),
-                  (0, 240, 255), 1)
-        cv2.rectangle(frame, (thirdShirtSamplePointX, thirdShirtSamplePointY), (thirdShirtSamplePointX + 5, thirdShirtSamplePointY + 5),
-                  (0, 240, 255), 1)
+        cv2.rectangle(img, (firstShirtSamplePointX, firstShirtSamplePointY), (firstShirtSamplePointX + 5, firstShirtSamplePointY + 5),
+                  (0, 0, 255), 1)
+        cv2.rectangle(img, (secondShirtSamplePointX, secondShirtSamplePointY), (secondShirtSamplePointX + 5, secondShirtSamplePointY + 5),
+                  (0, 0, 255), 1)
+        cv2.rectangle(img, (thirdShirtSamplePointX, thirdShirtSamplePointY), (thirdShirtSamplePointX + 5, thirdShirtSamplePointY + 5),
+                  (0, 0, 255), 1)
 
         h = (h1 + h2 + h3)/3
         s = (s1 + s2 + s3)/3
@@ -94,14 +97,7 @@ for (x, y, w, h) in faces:
 
         hsv = str(h) + "," + str(s) + "," + str(v)
         cv2.imwrite("openCVImage.png", img)
-        jsonFile = open("index.html", "w")
+        jsonFile = open("/var/www/html/index.html", "w")
         jsonFile.write(
             "{\"generalColor\": \"" + generalName + "\", \"BGR\": \"" + hsv + "\"}")
         jsonFile.close()
-        time.sleep(1)
-        os.popen("git add index.html openCVImage.png --force")
-        time.sleep(1)
-        os.popen("git commit -m \"Adding todays colors\"")
-        time.sleep(1)
-        os.popen("git push origin main:myColorForToday")
-        time.sleep(1)
