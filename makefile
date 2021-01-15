@@ -5,7 +5,7 @@ install_services:
 	@echo "Installing required backend services...."
 	sudo apt-get update
 	sudo apt-get install -y  python-opencv libatlas-base-dev libwebp-dev python python3 python3-pip libtiff5  libilmbase-dev libopenexr-dev libgstreamer1.0-dev libopenjp2-7
-	yes | pip3 install numpy opencv-python
+	yes | sudo pip3 install numpy opencv-python
 	@echo "Backend services are complete"
 
 add_to_repo:
@@ -19,9 +19,11 @@ add_to_repo:
 
 apache:
 	@echo "Installing Apache2 Web Server"
-	sudo apt-get install -y apache2
+	sudo apt-get install -y apache2 libapache2-mod-php
 	@echo "Modifying index.html to allow editing of index.html from the script. This will be set as all users can read/write/766"
 	sudo chmod 766 /var/www/html/index.html
+	@echo "Adding Apache user 'www-data' to sudoers no password required *Required for main.py to access the camera from web browser* 
+	sudo echo 'www-data ALL=(ALL) NOPASSWD:ALL' | sudo tee -a  /etc/sudoers
 	@echo "Apache2 configuration complete"
 
 git_files:
