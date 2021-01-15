@@ -92,11 +92,11 @@ for (x, y, w, h) in faces:
         generalName = getColorName(h, s, v)
         print("Generalized Color Name = ", generalName)
 
-        hsv = str(h) + "," + str(s) + "," + str(v)
+        hsv = str(h) + "," + str(s/255) + "," + str(v/255)
         cv2.imwrite("openCVImage.png", img)
         jsonFile = open("index.html", "w")
         jsonFile.write(
-            "{\"generalColor\": \"" + generalName + "\", \"BGR\": \"" + hsv + "\"}")
+            "{\"generalColor\": \"" + generalName + "\", \"HSV\": \"" + hsv + "\"}")
         jsonFile.close()
         time.sleep(1)
         os.popen("git add index.html openCVImage.png --force")

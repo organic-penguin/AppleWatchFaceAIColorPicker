@@ -91,13 +91,12 @@ for (x, y, w, h) in faces:
         s = (s1 + s2 + s3)/3
         v = (v1 + v2 + v3)/3
 
-        print("HSV values = ", h, s/255, v/255)
         generalName = getColorName(h, s, v)
-        print("Generalized Color Name = ", generalName)
+        print("HSV values = ", h, s/255, v/255, " and Generalize Color Name = ", generalName)
 
-        hsv = str(h) + "," + str(s) + "," + str(v)
+        hsv = str(h) + "," + str(s/255) + "," + str(v/255)
         cv2.imwrite("openCVImage.png", img)
         jsonFile = open("/var/www/html/index.html", "w")
         jsonFile.write(
-            "{\"generalColor\": \"" + generalName + "\", \"BGR\": \"" + hsv + "\"}")
+            "{\"generalColor\": \"" + generalName + "\", \"HSV\": \"" + hsv + "\"}")
         jsonFile.close()
