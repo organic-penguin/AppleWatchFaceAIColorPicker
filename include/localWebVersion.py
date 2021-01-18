@@ -50,11 +50,17 @@ imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 #Face detection settings
 faces = face_cascade.detectMultiScale(imgGray, 1.3, 5)
 
-# Draw a rectangle around the faces
+#If faces are empty 
+if faces == ():
+        jsonFile = open("/var/www/html/index.html", "w")
+        jsonFile.write("{\"generalColor\": \"" + "Empty"  + "\", \"HSV\": \"" + "0,0,0" + "\"}")
+        jsonFile.close()
+
+
 for (x, y, w, h) in faces:
         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-        #Color sampling point points (Takes the face identification X and Y and adds additional pixels for sampling what shirt color you're wearing
+        #Three shirt sampling points
         firstShirtSamplePointX = x + 40
         firstShirtSamplePointY = (y + h) + 100
 

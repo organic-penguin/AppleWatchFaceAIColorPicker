@@ -33,9 +33,9 @@ git_files:
 
 apache_files:
 	@echo "Moving the required python script relative to the local Apache2 Web Server version to the main root folder"
+	sudo cp include/execute /var/www/html/ -r
 	sudo cp include/localWebVersion.py /var/www/html/execute/main.py
 	sudo cp include/index.html /var/www/html/index.html
-	sudo cp include/execute /var/www/html/ -r
 	@echo "Modifying index.html to allow editing of index.html from the script. This will be set as all users can read/write/766"
 	sudo chmod 766 /var/www/html/index.html
 	@echo "Apache files complete"
