@@ -1,11 +1,20 @@
 <span align="center">
-  
+
+[![AppleWatchFaceAIColorPicker Logo](https://user-images.githubusercontent.com/60585656/105281755-ae59ad00-5b61-11eb-8c0f-be617265d9de.png)](https://github.com/organic-penguin/AppleWatchFaceAIColorPicker)
+
+
 # AppleWatchFaceAIColorPicker (Beta)
 
 </span>
 
 ## Overview
-This is a collection of tools that can either be setup to run with GitHub Pages or as a local web server for analyzing your daily outfit and choosing the primary color of your shirt
+This is a collection of tools that integrate the RaspberryPi computer, the Open-CV library, Apple Shortcuts, and either Apache web server or GitHub pages (depending on your preference) to take a picture of you, analyze three points on your shirt for color, and make that color avaialble to the Apple Shortcut to read and change your watch face to match.
+
+The setup can be as efficient as standing in front of the camera and saying _**Hey Siri, change your face**_ to have your watch face match your outfit every day
+
+## Required Hardware
+1. Raspberry Pi (Any model should do)
+2. USB Camera
 
 ## Installation
 
@@ -43,6 +52,8 @@ This version uses a physical button to execute the camera, analysis, and push th
 `$ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com`
 6. Run the make file configuration for the GitHub installation - `make git`
+7. Push a commit - `git push origin`
+8. Enter your username and password (This will be saved locally so that the script can continually push to your repo)
 
 #### Setup Camera Execution Button
   Use your favorite starting framework to run the `initializeButton.py` on boot. The button is defaulted to pin GPIO pin 21
