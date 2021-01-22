@@ -54,7 +54,7 @@ faces = face_cascade.detectMultiScale(imgGray, 1.3, 5)
 #If no face was detected
 if faces == ():
         jsonFile = open("/var/www/html/index.html", "w")
-        jsonFile.write("{\"generalColor\": \"" + "Empty"  + "\", \"HSV\": \"" + "0,0,0" + "\"}")
+        jsonFile.write("{\"generalColor\": \"" + "Empty"  + "\", \"HSV\": \"" + "0,0,0" + "\"} <br /> <br /> <img src = 'execute/openCVImage.png'")
         jsonFile.close()
 
 
