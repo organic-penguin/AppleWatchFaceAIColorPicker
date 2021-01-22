@@ -1,4 +1,4 @@
-git: install_services add_to_repo git_files
+git: install_services git_files add_to_repo
 local_web: install_services apache apache_files
 
 install_services:
@@ -29,6 +29,7 @@ git_files:
 	cp include/gitVersion.py main.py
 	cp include/initializeButton.py initializeButton.py
 	cp include/index.html index.html
+	cp include/gitignore.txt .gitignore
 	@echo "GIT files complete"
 
 apache_files:
