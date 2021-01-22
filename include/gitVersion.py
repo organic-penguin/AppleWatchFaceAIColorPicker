@@ -50,7 +50,7 @@ faces = face_cascade.detectMultiScale(imgGray, 1.3, 5)
 #If no face was detected
 if faces == ():
         jsonFile = open("/var/www/html/index.html", "w")
-        jsonFile.write("{\"generalColor\": \"" + "Empty"  + "\", \"HSV\": \"" + "0,0,0" + "\"}")
+        jsonFile.write("{\"generalColor\": \"" + "Empty"  + "\", \"HSV\": \"" + "0,0,0" + "\"}  <br /> <br /> <img src = 'execute/openCVImage.png' />")
         jsonFile.close()
 
 
@@ -60,12 +60,14 @@ for (x, y, w, h) in faces:
 
         #Color sampling point points (Takes the face identification X and Y and adds additional pixels for sampling what shirt color you're wearing
         firstShirtSamplePointX = x + 40
-        firstShirtSamplePointY = (y + h) + 100
+        collar = h * .65
+        collar = int(collar)
+        firstShirtSamplePointY = y + h + collar
 
-        secondShirtSamplePointX = firstShirtSamplePointX - 10
+        secondShirtSamplePointX = firstShirtSamplePointX - 20
         secondShirtSamplePointY = firstShirtSamplePointY + 5
 
-        thirdShirtSamplePointX = firstShirtSamplePointX + 10
+        thirdShirtSamplePointX = firstShirtSamplePointX + 20
         thirdShirtSamplePointY = firstShirtSamplePointY - 5
 
         h, s, v = imgHSV[firstShirtSamplePointX, firstShirtSamplePointY]
@@ -102,7 +104,7 @@ for (x, y, w, h) in faces:
         cv2.imwrite("openCVImage.png", img)
         jsonFile = open("index.html", "w")
         jsonFile.write(
-            "{\"generalColor\": \"" + generalName + "\", \"HSV\": \"" + hsv + "\"}")
+              "{\"generalColor\": \"" + generalName + "\", \"HSV\": \"" + hsv + "\"} <br /> <br /> <img src = 'execute/openCVImage.png' />")
         jsonFile.close()
         time.sleep(1)
         os.popen("git add index.html openCVImage.png --force")

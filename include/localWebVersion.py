@@ -11,9 +11,9 @@ def getColorName(H,S,V):
         V = V/255
         if(V <= .15):
                 generalColor = "Black"
-        elif(.16 <= S <= 70 and V <= .60 and 70 >= H <= 40):
+        elif(.16 <= S <= 70 and V <= .3 and 70 >= H <= 40):
                 generalColor = "Grey"
-        elif(S <= .15 and V >= .6):
+        elif(S <= .30 and V >= .6):
                 generalColor = "White"
         elif(1 <= H <= 20):
                 generalColor = "Red"
@@ -37,6 +37,7 @@ def getColorName(H,S,V):
 
 #Capture an image from your camera then save as an image to reuse later and single frame processing (save resources)
 cam = cv2.VideoCapture(0)
+cam.set(17, 2000)
 ret, frame = cam.read()
 cv2.imwrite("openCVImage.png", frame)
 img = cv2.imread("openCVImage.png")
@@ -50,24 +51,27 @@ imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 #Face detection settings
 faces = face_cascade.detectMultiScale(imgGray, 1.3, 5)
 
-#If faces are empty 
+#If no face was detected
 if faces == ():
         jsonFile = open("/var/www/html/index.html", "w")
         jsonFile.write("{\"generalColor\": \"" + "Empty"  + "\", \"HSV\": \"" + "0,0,0" + "\"}")
         jsonFile.close()
 
 
+# Draw a rectangle around the faces
 for (x, y, w, h) in faces:
         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-        #Three shirt sampling points
+        #Color sampling point points (Takes the face identification X and Y and adds additional pixels for sampling what shirt color you're wearing
         firstShirtSamplePointX = x + 40
-        firstShirtSamplePointY = (y + h) + 100
+        collar = h * .65
+        collar = int(collar)
+        firstShirtSamplePointY = y + h + collar
 
-        secondShirtSamplePointX = firstShirtSamplePointX - 10
-        secondShirtSamplePointY = firstShirtSamplePointY + 5
+        secondShirtSamplePointX = firstShirtSamplePointX - 20
+        secondShirtSamplePointY = firstShirtSamplePointY - 5
 
-        thirdShirtSamplePointX = firstShirtSamplePointX + 10
+        thirdShirtSamplePointX = firstShirtSamplePointX + 20
         thirdShirtSamplePointY = firstShirtSamplePointY - 5
 
 
@@ -104,5 +108,5 @@ for (x, y, w, h) in faces:
         cv2.imwrite("openCVImage.png", img)
         jsonFile = open("/var/www/html/index.html", "w")
         jsonFile.write(
-            "{\"generalColor\": \"" + generalName + "\", \"HSV\": \"" + hsv + "\"}")
+            "{\"generalColor\": \"" + generalName + "\", \"HSV\": \"" + hsv + "\"} <br /> <br /> <img src = 'execute/openCVImage.png' />")
         jsonFile.close()
