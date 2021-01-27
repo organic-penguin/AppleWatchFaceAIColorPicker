@@ -31,6 +31,7 @@ This version hosts a local web server that executes the camera, analysis, and re
 QR: 
 <img src="https://user-images.githubusercontent.com/60585656/105943954-31be4700-6017-11eb-9aa0-17f780e65e3d.png" width="25%" height="25%" />
 2. Adjust the shortcut with the approrpaite local hostname link and map your watch faces to the available colors
+3. Edit the watch face sections to match your watch faces. Don't have a face to match the color? Just set it to your favorite color neutral face.
 
 ### GitHub Version
 This version uses a physical button to execute the camera, analysis, and push the results to a GitHub repo page. The Apple Watch shortcut will then have to be executed to retrieve the results from the GitHub page and change your watch face.
@@ -76,6 +77,7 @@ $ git config --global user.email johndoe@example.com`
 QR: 
 <img src="https://user-images.githubusercontent.com/60585656/105943958-33880a80-6017-11eb-8e34-ac4ff34213de.png" width="25%" height="25%" />
 2. Adjust the shortcut with the appropriate GitHub page link and map your watch faces to the available colors
+3. Edit the watch face sections to match your watch faces. Don't have a face to match the color? Just set it to your favorite color neutral face.
 
 
 ## Current Issues
